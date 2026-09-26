@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #07110d;
+  --color-surface: #0c1914;
+  --color-surface-2: #10211a;
+  --color-line: rgba(160, 220, 190, 0.12);
+  --color-ink: #e7efe9;
+  --color-muted: #8ea398;
+  --color-soft: #c8d6ce;
+  --color-signal: #3ee08f;
+  --color-copper: #d9a64e;
+  --color-ble: #4da3ff;
+  --color-alert: #ff7a59;
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+::selection { background: rgba(62, 224, 143, 0.3); }
+
+/* PCB-grid backdrop */
+.pcb-bg {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(160, 220, 190, 0.09) 1px, transparent 0),
+    linear-gradient(to right, rgba(160, 220, 190, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(160, 220, 190, 0.035) 1px, transparent 1px);
+  background-size: 24px 24px, 96px 96px, 96px 96px;
+}
+.glow-top {
+  background:
+    radial-gradient(60% 50% at 70% 20%, rgba(62, 224, 143, 0.13), transparent 70%),
+    radial-gradient(40% 40% at 10% 80%, rgba(217, 166, 78, 0.08), transparent 70%);
+}
+
+.card {
+  background: linear-gradient(180deg, rgba(16, 33, 26, 0.85), rgba(12, 25, 20, 0.85));
+  border: 1px solid var(--color-line);
+  border-radius: 18px;
+  backdrop-filter: blur(6px);
+}
+.card-hover { transition: border-color .3s, transform .3s, box-shadow .3s; }
+.card-hover:hover {
+  border-color: rgba(62, 224, 143, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 20px 50px -25px rgba(62, 224, 143, 0.35);
+}
+
+.chip-tag {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  padding: 3px 9px;
+  border-radius: 6px;
+  border: 1px solid var(--color-line);
+  color: #b9cbc1;
+  background: rgba(255, 255, 255, 0.02);
+  white-space: nowrap;
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--color-signal);
+}
+
+/* 3D part labels (drei <Html>) */
+.part-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #e7efe9;
+  background: rgba(7, 17, 13, 0.85);
+  border: 1px solid rgba(62, 224, 143, 0.45);
+  padding: 3px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: opacity .2s;
+  transform: translateY(-14px);
+}
+/* labelSide: push the tag off-centre so neighbouring labels don't stack */
+.part-label.right { transform: translate(calc(50% + 8px), -14px); }
+.part-label.left { transform: translate(calc(-50% - 8px), -14px); }
+
+/* clock-signal line for timeline */
+.clock-line {
+  background-image: linear-gradient(to bottom, var(--color-signal) 50%, transparent 50%);
+  background-size: 2px 14px;
+  animation: clock 1.2s linear infinite;
+}
+@keyframes clock { to { background-position: 0 28px; } }
+
+.pulse-dot { position: relative; }
+.pulse-dot::after {
+  content: ""; position: absolute; inset: -4px; border-radius: 999px;
+  border: 1px solid currentColor; animation: ping 1.8s cubic-bezier(0,0,.2,1) infinite;
+}
+@keyframes ping { 75%, 100% { transform: scale(2.2); opacity: 0; } }
+
+.caret::after { content: "▍"; margin-left: 2px; animation: blink 1s steps(1) infinite; color: var(--color-signal); }
+@keyframes blink { 50% { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  html { scroll-behavior: auto; }
+}

@@ -1,0 +1,59 @@
+/*
+ * Hardware Lab metadata. Kept free of three.js imports so the page can read it
+ * without pulling the 3D bundle into the initial load.
+ */
+export type LabBoardId = 'nrf' | 'sbc' | 'npu' | 'esp32'
+
+export type LabBoard = {
+  id: LabBoardId
+  name: string
+  kicker: string
+  blurb: string
+  specs: string[]
+  usedIn: string[]
+  accent: string
+  scale: number
+}
+
+export const LAB_BOARDS: LabBoard[] = [
+  {
+    id: 'nrf',
+    name: 'nRF5340 BLE Board',
+    kicker: 'Wireless · Real-time',
+    blurb: 'Dual-core Cortex-M33 BLE SoC used for a 1 kHz accelerometer acquisition system with a custom GATT service.',
+    specs: ['1 kHz sampling', 'Custom BLE GATT service', 'Low-latency streaming firmware', 'Board bring-up & debug'],
+    usedIn: ['Wireless Vibration Monitoring', 'IIT Tirupati internship'],
+    accent: '#4da3ff',
+    scale: 0.72,
+  },
+  {
+    id: 'sbc',
+    name: 'ARM64 Single-Board Computer',
+    kicker: 'Linux · Edge compute',
+    blurb: 'Pi-class SBC that hosts ROS2 nodes, vision pipelines and the heterogeneous AI runtime.',
+    specs: ['ARM64 Linux', 'ROS2 / OpenCV workloads', 'PCIe to NPU accelerator', '40-pin GPIO'],
+    usedIn: ['Collaborative Robotic Arm', 'Object Localization', 'Heterogeneous AI deployment'],
+    accent: '#3ee08f',
+    scale: 0.68,
+  },
+  {
+    id: 'npu',
+    name: 'M.2 NPU Accelerator',
+    kicker: 'On-device AI',
+    blurb: 'Neural-processing module on PCIe — where models are compiled, placed and benchmarked against CPU/MCU targets.',
+    specs: ['PCIe Gen3 M.2', 'Quantized model deployment', 'Operator placement across devices'],
+    usedIn: ['GlassData — on-device ML'],
+    accent: '#f5b942',
+    scale: 1.2,
+  },
+  {
+    id: 'esp32',
+    name: 'ESP32 DevKit',
+    kicker: 'Wi-Fi · BLE · Prototyping',
+    blurb: 'Go-to prototyping MCU for wearables and sensor nodes — ECG acquisition, filtering and anomaly detection.',
+    specs: ['Dual-core Xtensa', 'Wi-Fi + BLE', 'ADC signal acquisition'],
+    usedIn: ['LifeBand MAA', 'Obstacle-avoidance robot'],
+    accent: '#ff7a59',
+    scale: 1.1,
+  },
+]
