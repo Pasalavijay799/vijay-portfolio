@@ -42,7 +42,7 @@ Screenshots of the current build are in `docs/screenshots/`.
 ## 3. What YOU need to provide
 
 1. **Profile photo** → `public/profile.jpg` (square, ≥ 800×800, face centred, plain background works best)
-2. **ECE portal screenshot** → `public/projects/ece-portal.png` (16:9, top of the dashboard/home). Shown automatically inside the browser frame
+2. ~~ECE portal screenshot~~ — done: 4 screenshots in `public/projects/ece-*.jpg`, shown as a tabbed gallery
 3. (Optional) Project photos/GIFs for the robotic arm, RPM machine, LifeBand, EyeNtra → `public/projects/*.jpg`
 4. Confirm facts flagged below
 
@@ -106,4 +106,4 @@ public/
 - Background `#07110d` (soldermask-black), surfaces `#0c1914 / #10211a`
 - Accents: signal green `#3ee08f`, copper `#d9a64e`, BLE blue `#4da3ff`, alert `#ff7a59`
 - Fonts: Space Grotesk (display), Inter (body), JetBrains Mono (labels/code)
-- Motifs: PCB dot-grid, IC-pin photo frame, clock-signal timeline, pin-header skill lists, UART terminal contact card
+- Motifs: plain dark background (grid removed for a cleaner look), IC-pin photo frame, clock-signal timeline, pin-header skill lists, UART terminal contact card

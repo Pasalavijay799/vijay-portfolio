@@ -24,7 +24,7 @@ export default function Navbar() {
 
   return (
     <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled ? 'border-b border-line bg-bg/75 backdrop-blur-xl' : ''}`}>
-      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+      <nav className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-12">
         <a href="#top" className="group flex items-center gap-2.5" aria-label="Home">
           <span className="relative grid h-9 w-9 place-items-center rounded-lg border border-copper/60 bg-surface font-mono text-xs font-semibold text-signal">
             VK

@@ -39,7 +39,7 @@ export default function Contact() {
         </Reveal>
       </Section>
       <footer className="border-t border-line">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-8 text-xs text-muted sm:flex-row sm:px-6">
+        <div className="mx-auto flex max-w-[1440px] flex-col items-center justify-between gap-2 px-4 py-8 text-xs text-muted sm:flex-row sm:px-6 lg:px-12">
           <span>© {new Date().getFullYear()} {profile.name}</span>
           <span className="font-mono">built with React · Three.js · R3F</span>
         </div>

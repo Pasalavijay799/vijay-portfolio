@@ -10,7 +10,7 @@ import Contact from './components/Contact'
 
 export default function App() {
   return (
-    <div className="relative min-h-screen pcb-bg">
+    <div className="relative min-h-screen">
       <Navbar />
       <main>
         <Hero />

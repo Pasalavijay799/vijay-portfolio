@@ -192,10 +192,10 @@ export function NRFBoard({ traces = true }: { traces?: boolean }) {
       {traces && <Traces paths={paths} color="#9fd4ff" lineColor="#7fa6e6" speed={0.55} />}
 
       {/* radio: SoC + flash + PCB antenna */}
-      <Layer lift={1.7} position={[2.7, 0, -0.25]} label="nRF5340 · dual Cortex-M33" labelSide="left">
+      <Layer lift={2.0} position={[2.7, 0, -0.25]} label="nRF5340 · dual Cortex-M33" labelSide="left">
         <Chip w={0.55} d={0.55} h={0.08} pins={8} />
       </Layer>
-      <Layer lift={1.1} position={[2.5, 0, 0.55]} label="QSPI flash" labelSide="left">
+      <Layer lift={1.1} position={[2.5, 0, 0.55]}>
         <Chip w={0.4} d={0.3} h={0.08} pins={4} pinSides={2} />
       </Layer>
       <Layer lift={0.9} position={[3.85, 0, -0.25]} label="2.4 GHz PCB antenna">
@@ -213,17 +213,17 @@ export function NRFBoard({ traces = true }: { traces?: boolean }) {
       </Layer>
 
       {/* Arduino-style headers */}
-      <Layer lift={0.55} position={[-2.35, 0, -1.72]} label="Arduino headers">
+      <Layer lift={0.55} position={[-2.35, 0, -1.72]} label="Arduino headers" labelSide="left">
         <Header cols={8} rows={1} pitch={0.2} female />
       </Layer>
       <Layer lift={0.55} position={[-0.85, 0, -1.72]}><Header cols={6} rows={1} pitch={0.2} female /></Layer>
       <Layer lift={0.55} position={[0.5, 0, -1.72]}><Header cols={6} rows={1} pitch={0.2} female /></Layer>
       <Layer lift={0.55} position={[-2.0, 0, 1.6]}><Header cols={6} rows={1} pitch={0.2} female /></Layer>
       <Layer lift={0.55} position={[-0.75, 0, 1.6]}><Header cols={5} rows={1} pitch={0.2} female /></Layer>
-      <Layer lift={0.45} position={[-1.95, 0, -1.0]} label="P1 GPIO">
+      <Layer lift={0.45} position={[-1.95, 0, -1.0]}>
         <Header cols={12} rows={2} pitch={0.2} pinH={0.4} />
       </Layer>
-      <Layer lift={0.45} position={[1.55, 0, -0.4]} label="P0 GPIO" labelSide="left">
+      <Layer lift={0.45} position={[1.55, 0, -0.4]}>
         <group rotation={[0, Math.PI / 2, 0]}><Header cols={10} rows={2} pitch={0.2} pinH={0.4} /></group>
       </Layer>
       {[-1.25, -0.95, -0.65].map((z) => (
@@ -234,7 +234,7 @@ export function NRFBoard({ traces = true }: { traces?: boolean }) {
       <Layer lift={0.7} position={[2.3, 0, -1.7]} label="nRF USB">
         <SmallPort w={0.55} h={0.22} d={0.45} />
       </Layer>
-      <Layer lift={0.7} position={[-3.95, 0, 0]} label="USB (debug)">
+      <Layer lift={0.7} position={[-3.95, 0, 0]}>
         <SmallPort w={0.45} h={0.22} d={0.55} />
       </Layer>
       <group position={[-3.9, 0, 1.55]}><SlideSwitch /></group>

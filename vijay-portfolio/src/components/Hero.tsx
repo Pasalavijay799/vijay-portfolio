@@ -63,11 +63,11 @@ export default function Hero() {
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-bg via-bg/70 to-transparent lg:via-bg/30" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-bg to-transparent" />
 
-      <div className="relative mx-auto w-full max-w-6xl px-4 pt-24 sm:px-6">
+      <div className="relative mx-auto w-full max-w-[1440px] px-4 pt-24 sm:px-6 lg:px-12">
         <div className="max-w-xl">
           {current && (
             <motion.div {...fade(0.1)} className="mb-7 inline-flex items-center gap-3 rounded-full border border-line bg-surface/70 py-1.5 pl-1.5 pr-4 backdrop-blur">
-              <Avatar className="h-8 w-8 rounded-full ring-1 ring-signal/50" />
+              <Avatar face className="h-8 w-8 shrink-0 rounded-full ring-1 ring-signal/50" />
               <span className="text-xs text-muted sm:text-sm">
                 <span className="pulse-dot mr-2 inline-block h-1.5 w-1.5 rounded-full bg-signal align-middle text-signal" />
                 {current.role} @ <span className="text-ink">{current.org}</span>

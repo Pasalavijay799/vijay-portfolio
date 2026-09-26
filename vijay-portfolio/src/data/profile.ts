@@ -87,6 +87,8 @@ export type Project = {
   board: BoardKind // which 3D board / icon represents it
   featured?: boolean
   links?: { label: string; href: string }[]
+  /** Screenshots shown in a browser frame (files in public/projects/). */
+  gallery?: { src: string; label: string; url: string }[]
 }
 
 export type BoardKind = 'sbc' | 'mcu' | 'nrf' | 'arm' | 'web' | 'vision'
@@ -107,6 +109,12 @@ export const projects: Project[] = [
     board: 'web',
     featured: true,
     links: [{ label: 'Live site', href: 'https://ece.rguktrkv.ac.in' }],
+    gallery: [
+      { src: '/projects/ece-home-dark.jpg', label: 'Home · dark', url: 'https://ece.rguktrkv.ac.in' },
+      { src: '/projects/ece-home.jpg', label: 'Home · light', url: 'https://ece.rguktrkv.ac.in' },
+      { src: '/projects/ece-login.jpg', label: 'Sign in', url: 'https://ece.rguktrkv.ac.in/login' },
+      { src: '/projects/ece-academic.jpg', label: 'Academic portal', url: 'https://ece.rguktrkv.ac.in/academic-portal' },
+    ],
   },
   {
     title: 'Collaborative Robotic Arm System',
@@ -147,8 +155,8 @@ export const projects: Project[] = [
       'Encoder feedback with Ziegler–Nichols-tuned PID',
       'Live desktop UI for RPM, set-points and PID gains — no code changes needed',
     ],
-    tags: ['PID', 'Stepper Motors', 'Python', 'Real-Time'],
-    board: 'mcu',
+    tags: ['Raspberry Pi', 'PID', 'Stepper Motors', 'Python', 'Real-Time'],
+    board: 'sbc',
   },
   {
     title: 'Object Localization with ZED 2i',

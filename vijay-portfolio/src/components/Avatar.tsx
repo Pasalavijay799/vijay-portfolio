@@ -1,8 +1,11 @@
 import { useState } from 'react'
 import { profile } from '../data/profile'
 
-/** Profile photo with an initials fallback until public/profile.jpg exists. */
-export default function Avatar({ className = '' }: { className?: string }) {
+/**
+ * Profile photo with an initials fallback until public/profile.jpg exists.
+ * `face` zooms in on the head — for small circular badges where a full portrait would be tiny.
+ */
+export default function Avatar({ className = '', face = false }: { className?: string; face?: boolean }) {
   const [failed, setFailed] = useState(false)
   if (failed)
     return (
@@ -10,5 +13,13 @@ export default function Avatar({ className = '' }: { className?: string }) {
         <span className="text-[34cqw] leading-none tracking-tight">VK</span>
       </div>
     )
-  return <img src={profile.photo} alt={profile.name} onError={() => setFailed(true)} className={`object-cover ${className}`} />
+  const img = (
+    <img
+      src={profile.photo}
+      alt={profile.name}
+      onError={() => setFailed(true)}
+      className={face ? 'h-full w-full origin-[50%_28%] scale-[1.9] object-cover' : `object-cover ${className}`}
+    />
+  )
+  return face ? <div className={`overflow-hidden bg-white ${className}`}>{img}</div> : img
 }

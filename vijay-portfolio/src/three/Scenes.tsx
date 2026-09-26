@@ -75,7 +75,7 @@ export function HeroScene({ active = true }: { active?: boolean }) {
           </Float>
           <DockingNPU />
           <Float speed={1.6} rotationIntensity={0.4} floatIntensity={0.8}>
-            <group position={[3.6, 1.6, -4.4]} rotation={[0.3, -0.6, 0.15]} scale={0.7}>
+            <group position={[3.6, 1.6, -4.4]} rotation={[0.3, -0.6, 0.15]} scale={0.55}>
               <NRFBoard />
             </group>
           </Float>
