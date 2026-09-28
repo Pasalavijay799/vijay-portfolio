@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Check, ExternalLink, Globe, Bot, Bluetooth, CircuitBoard, ScanEye, Cpu } from 'lucide-react'
+import { ExternalLink, Globe, Bot, Bluetooth, CircuitBoard, ScanEye, Cpu } from 'lucide-react'
 import { projects, type BoardKind, type Project } from '../data/profile'
 import { Section, Reveal } from './Section'
 
@@ -49,73 +49,41 @@ function Gallery({ shots }: { shots: NonNullable<Project['gallery']> }) {
   )
 }
 
-/** Block diagram: nodes left → right with a signal pulse travelling each link. */
-function Flow({ nodes, accent }: { nodes: string[]; accent: string }) {
-  return (
-    <div className="flex items-center" aria-label={`Data flow: ${nodes.join(' → ')}`}>
-      {nodes.map((n, i) => (
-        <div key={n} className="contents">
-          {i > 0 && (
-            <span className="relative h-px w-3 shrink-0 sm:w-4" style={{ background: `${accent}66` }}>
-              <span className="flow-dot" style={{ background: accent, animationDelay: `${i * 0.35}s` }} />
-            </span>
-          )}
-          <span
-            title={n}
-            className="min-w-0 flex-1 truncate rounded-md border px-1.5 py-1.5 text-center font-mono text-[10.5px] text-soft"
-            style={{ borderColor: `${accent}40`, background: `${accent}0d` }}
-          >
-            {n}
-          </span>
-        </div>
-      ))}
-    </div>
-  )
-}
-
 function Card({ p, big = false }: { p: Project; big?: boolean }) {
   const Icon = ICONS[p.board]
   const accent = ACCENT[p.board]
+  const live = p.links?.some((l) => l.label.toLowerCase().includes('live'))
   return (
-    <article className={`card card-hover group flex h-full flex-col p-5 ${big ? 'md:p-7' : ''}`}>
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-line" style={{ color: accent, background: `${accent}14` }}>
-            <Icon size={19} />
-          </span>
-          <div className="font-mono text-[11px] uppercase leading-tight tracking-wider" style={{ color: accent }}>
-            {p.subtitle}
-            <div className="mt-0.5 normal-case tracking-normal text-muted">{p.year}</div>
-          </div>
-        </div>
-        <div className="shrink-0 text-right">
-          <div className="font-display text-2xl font-semibold leading-none" style={{ color: accent }}>{p.metric.value}</div>
-          <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-muted">{p.metric.label}</div>
+    <article className={`card card-hover group flex h-full flex-col p-6 ${big ? 'md:p-8' : ''}`}>
+      <div className="mb-5 flex items-start justify-between gap-4">
+        <span className="grid h-11 w-11 place-items-center rounded-xl border border-line" style={{ color: accent, background: `${accent}14` }}>
+          <Icon size={20} />
+        </span>
+        <div className="flex items-center gap-2">
+          {live && <span className="inline-flex items-center gap-1.5 rounded-full border border-signal/40 bg-signal/10 px-2.5 py-1 font-mono text-[11px] text-signal"><span className="pulse-dot h-1.5 w-1.5 rounded-full bg-signal text-signal" />in production</span>}
+          <span className="font-mono text-xs text-muted">{p.year}</span>
         </div>
       </div>
-
-      <h3 className={`mt-4 font-display font-semibold tracking-tight ${big ? 'text-2xl md:text-3xl' : 'text-lg'}`}>{p.title}</h3>
-      <p className="mt-1.5 text-sm leading-snug text-muted">{p.summary}</p>
-
-      {p.gallery && <div className="mt-5"><Gallery shots={p.gallery} /></div>}
-
-      <div className="mt-5"><Flow nodes={p.flow} accent={accent} /></div>
-
-      <ul className={`mt-4 grid gap-1.5 ${big ? 'sm:grid-cols-3 sm:gap-3' : ''}`}>
+      <p className="font-mono text-xs uppercase tracking-wider" style={{ color: accent }}>{p.subtitle}</p>
+      <h3 className={`mt-1.5 font-display font-semibold tracking-tight ${big ? 'text-2xl md:text-3xl' : 'text-xl'}`}>{p.title}</h3>
+      <p className="mt-3 text-[15px] leading-relaxed text-muted">{p.description}</p>
+      {p.gallery && <div className="mt-6"><Gallery shots={p.gallery} /></div>}
+      <ul className="mt-5 space-y-2">
         {p.highlights.map((h) => (
-          <li key={h} className="flex items-start gap-2 text-[13px] leading-snug text-soft">
-            <Check size={14} className="mt-0.5 shrink-0" style={{ color: accent }} />{h}
-          </li>
+          <li key={h} className="flex gap-2.5 text-sm leading-relaxed text-soft"><span className="mt-[9px] h-1 w-1 shrink-0 rounded-full" style={{ background: accent }} />{h}</li>
         ))}
       </ul>
-
-      <div className="mt-auto flex flex-wrap items-center gap-2 pt-5">
-        {p.tags.map((t) => <span key={t} className="chip-tag">{t}</span>)}
-        {p.links?.map((l) => (
-          <a key={l.href} href={l.href} target="_blank" rel="noreferrer" className="ml-auto inline-flex items-center gap-1.5 rounded-lg bg-signal/10 px-3 py-1.5 text-sm font-medium text-signal transition hover:bg-signal/20">
-            {l.label} <ExternalLink size={14} />
-          </a>
-        ))}
+      <div className="mt-auto pt-6">
+        <div className="flex flex-wrap gap-2">{p.tags.map((t) => <span key={t} className="chip-tag">{t}</span>)}</div>
+        {p.links && (
+          <div className="mt-5 flex gap-4">
+            {p.links.map((l) => (
+              <a key={l.href} href={l.href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-sm font-medium text-signal hover:underline">
+                {l.label} <ExternalLink size={14} />
+              </a>
+            ))}
+          </div>
+        )}
       </div>
     </article>
   )
@@ -125,7 +93,7 @@ export default function Projects() {
   const featured = projects.filter((p) => p.featured)
   const rest = projects.filter((p) => !p.featured)
   return (
-    <Section id="projects" kicker="03 · Projects" title="Selected work." intro="Built on real hardware — or running in production.">
+    <Section id="projects" kicker="03 · Projects" title="Selected work." intro="Firmware, robotics, vision and full-stack — each built and tested on real hardware or in production.">
       <div className="grid gap-5 lg:grid-cols-2">
         <Reveal className="h-full lg:row-span-2"><Card p={featured[0]} big /></Reveal>
         {featured.slice(1).map((p, i) => <Reveal key={p.title} delay={0.1 + i * 0.08} className="h-full"><Card p={p} /></Reveal>)}

@@ -31,7 +31,7 @@ export default function HardwareLab() {
   }, [])
 
   return (
-    <Section id="lab" kicker="04 · Hardware Lab" title="The boards behind the work." intro="Drag to orbit. Hit explode to look inside.">
+    <Section id="lab" kicker="04 · Hardware Lab" title="The boards behind the work." intro="Interactive 3D models of the hardware I build on. Drag to orbit, then explode a board to see what’s inside.">
       <div className="mb-5 flex flex-wrap gap-2">
         {LAB_BOARDS.map((b) => (
           <button
