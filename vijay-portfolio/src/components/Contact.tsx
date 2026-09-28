@@ -10,7 +10,7 @@ export default function Contact() {
   }
   return (
     <>
-      <Section id="contact" kicker="07 · Contact" title="Let’s build something that runs on real hardware." intro="Open to embedded, robotics and edge-AI roles, internships and research collaborations.">
+      <Section id="contact" kicker="07 · Contact" title="Let’s build something that runs on real hardware." intro="Open to embedded, robotics & edge-AI roles.">
         <Reveal>
           <div className="card overflow-hidden">
             <div className="flex items-center gap-2 border-b border-line px-4 py-2.5 font-mono text-[11px] text-muted">

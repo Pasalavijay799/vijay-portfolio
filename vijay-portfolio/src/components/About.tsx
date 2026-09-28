@@ -1,5 +1,5 @@
-import { GraduationCap, MapPin } from 'lucide-react'
-import { about, education, profile } from '../data/profile'
+import { Bot, BrainCircuit, Cpu, Globe, GraduationCap, MapPin } from 'lucide-react'
+import { about, education, profile, type FocusIcon } from '../data/profile'
 import { Section, Reveal } from './Section'
 import Avatar from './Avatar'
 
@@ -30,32 +30,49 @@ function ChipFrame() {
   )
 }
 
+const FOCUS_ICONS: Record<FocusIcon, typeof Cpu> = { cpu: Cpu, bot: Bot, brain: BrainCircuit, globe: Globe }
+
 export default function About() {
   return (
     <Section id="about" kicker="01 · About" title="Engineer who ships to real hardware.">
-      <div className="grid items-center gap-12 md:grid-cols-[0.9fr_1.1fr]">
+      <div className="grid items-center gap-10 md:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <Reveal><ChipFrame /></Reveal>
         <div>
-          {about.map((p, i) => (
-            <Reveal key={i} delay={i * 0.08}>
-              <p className="mb-5 text-base leading-relaxed text-muted md:text-lg [&:first-child]:text-ink">{p}</p>
-            </Reveal>
-          ))}
-          <Reveal delay={0.25}>
-            <p className="mb-8 flex items-center gap-2 text-sm text-muted"><MapPin size={15} className="text-copper" /> {profile.location}</p>
+          <Reveal>
+            <p className="font-display text-xl leading-snug text-ink md:text-2xl">{about.lead}</p>
+            <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-line bg-surface/70 px-3 py-1.5 text-sm text-muted">
+              <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-signal text-signal" />{about.now}
+            </p>
           </Reveal>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {education.map((e, i) => (
-              <Reveal key={e.degree} delay={0.3 + i * 0.08} className="h-full">
-                <div className="card h-full p-5">
-                  <GraduationCap size={18} className="mb-3 text-signal" />
-                  <div className="font-display text-base font-semibold">{e.degree}</div>
-                  <div className="mt-1 text-sm text-muted">{e.school} · {e.period}</div>
-                  <div className="mt-3 inline-block font-mono text-xs text-copper">{e.score}</div>
-                </div>
-              </Reveal>
-            ))}
+
+          <div className="mt-8 grid grid-cols-2 gap-3">
+            {about.focus.map((f, i) => {
+              const Icon = FOCUS_ICONS[f.icon]
+              return (
+                <Reveal key={f.title} delay={0.08 + i * 0.06} className="h-full">
+                  <div className="card card-hover h-full p-4 sm:p-5">
+                    <span className="grid h-9 w-9 place-items-center rounded-lg bg-signal/10 text-signal"><Icon size={18} /></span>
+                    <div className="mt-3 font-display text-[15px] font-semibold sm:text-base">{f.title}</div>
+                    <div className="mt-1 font-mono text-[11px] leading-snug text-muted">{f.detail}</div>
+                  </div>
+                </Reveal>
+              )
+            })}
           </div>
+
+          <Reveal delay={0.35}>
+            <div className="mt-6 flex flex-wrap items-center gap-2.5">
+              {education.map((e) => (
+                <span key={e.degree} className="inline-flex items-center gap-2 rounded-lg border border-line bg-surface/60 px-3 py-2 text-sm">
+                  <GraduationCap size={15} className="text-signal" />
+                  <span className="font-medium">{e.degree}</span>
+                  <span className="text-muted">{e.period}</span>
+                  <span className="font-mono text-xs text-copper">{e.score}</span>
+                </span>
+              ))}
+              <span className="inline-flex items-center gap-1.5 px-1 text-sm text-muted"><MapPin size={14} className="text-copper" />{profile.location}</span>
+            </div>
+          </Reveal>
         </div>
       </div>
     </Section>

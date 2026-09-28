@@ -1,5 +1,6 @@
 // Single source of truth for all portfolio content.
 // Edit text here — components only render this data.
+// Style: short, scannable points. One idea per line, lead with the result.
 
 export const profile = {
   name: 'Vijay Kumar Pasala',
@@ -11,8 +12,7 @@ export const profile = {
     'On-Device AI',
     'Real-Time Control',
   ],
-  tagline:
-    'I build systems that work on real hardware — firmware on the metal, control loops that hold their setpoint, and AI that runs on the device.',
+  tagline: 'Firmware on the metal. Control loops that hold. AI that runs on the device.',
   location: 'Kadapa, Andhra Pradesh, India',
   email: 'pasalavijaykumar04@gmail.com',
   // Anything set here ships in the public JS bundle — leave empty to keep the number private.
@@ -31,11 +31,18 @@ export const profile = {
   ],
 }
 
-export const about = [
-  'Electronics and Communication Engineering undergraduate at RGUKT RK Valley working where embedded hardware, robotics and AI meet.',
-  'Currently an Embedded Engineer at GlassData, writing C firmware that runs wake-word models on an ambient-sensing board. Before that I was a Research Intern at IIT Tirupati’s Robotics & Embedded Systems Lab, working on a JAKA Zu5 collaborative arm, a 1 kHz BLE vibration-monitoring system and a microgravity Random Position Machine.',
-  'I’m comfortable across the stack — from register-level firmware and PID tuning to Python/C++ tooling, ROS2, computer vision and deploying local models. I care about systems that work in the real world, not only in simulation.',
-]
+export type FocusIcon = 'cpu' | 'bot' | 'brain' | 'globe'
+
+export const about = {
+  lead: 'ECE undergrad at RGUKT RK Valley, building where embedded hardware, robotics and AI meet.',
+  now: 'Embedded Engineer @ GlassData · ex-Research Intern @ IIT Tirupati',
+  focus: [
+    { icon: 'cpu' as FocusIcon, title: 'Embedded firmware', detail: 'C · RTOS · BLE · UART' },
+    { icon: 'bot' as FocusIcon, title: 'Robotics & control', detail: 'ROS2 · 6-DOF arms · PID' },
+    { icon: 'brain' as FocusIcon, title: 'On-device AI', detail: 'Wake-word · Vision · Local LLMs' },
+    { icon: 'globe' as FocusIcon, title: 'Full-stack', detail: 'Node · PostgreSQL · Flutter' },
+  ],
+}
 
 export type Experience = {
   role: string
@@ -51,27 +58,27 @@ export const experience: Experience[] = [
   {
     role: 'Embedded Engineer',
     org: 'GlassData',
-    team: 'Ambient Sensing / On-Device ML',
+    team: 'Ambient sensing · On-device ML',
     period: '2026 — Present',
     current: true,
     points: [
-      'Developing embedded C firmware to deploy wake-word detection models on an ambient-sensing board.',
-      'Implementing signal-preprocessing stages and improving model accuracy through data-driven testing across many flashing cycles.',
-      'Designed a master–slave UART protocol between the sensing board and a companion controller for synchronized data exchange.',
-      'Prototyping a vision-based detection pipeline as a secondary sensing modality alongside the audio path.',
+      'Wake-word ML deployed on an ambient-sensing board',
+      'DSP pre-processing + data-driven accuracy tuning',
+      'Master–slave UART protocol to a companion MCU',
+      'Vision pipeline as a second sensing modality',
     ],
     tags: ['Embedded C', 'On-Device ML', 'UART', 'DSP'],
   },
   {
     role: 'Research Intern',
     org: 'IIT Tirupati',
-    team: 'Robotics & Embedded Systems Lab · IISER–ISRO collaboration',
+    team: 'Robotics & Embedded Systems Lab · IISER–ISRO',
     period: 'Jan 2026 — Jul 2026',
     points: [
-      'Brought up and debugged an nRF-based embedded board — hardware and firmware issues during integration.',
-      'Real-time control and integration of a JAKA Zu5 6-DOF collaborative robotic arm for lab experiments.',
-      'Built a Random Position Machine (RPM) — a microgravity simulation system linking embedded hardware and control software over TCP/IP.',
-      'Implemented a 1 kHz data-acquisition system on the nRF5340 with a custom BLE GATT service for high-frequency IMU streaming.',
+      '1 kHz BLE IMU streaming on nRF5340 (custom GATT)',
+      'nRF board bring-up & hardware/firmware debug',
+      'JAKA Zu5 6-DOF arm — real-time control',
+      'ISRO Random Position Machine over TCP/IP',
     ],
     tags: ['nRF5340', 'BLE/GATT', 'ROS2', 'JAKA SDK', 'TCP/IP'],
   },
@@ -81,10 +88,16 @@ export type Project = {
   title: string
   subtitle: string
   year: string
-  description: string
+  /** One line — what it is. */
+  summary: string
+  /** 2–3 crisp outcomes. */
   highlights: string[]
+  /** Headline number shown as a badge. */
+  metric: { value: string; label: string }
+  /** Block diagram: data flows left → right. */
+  flow: string[]
   tags: string[]
-  board: BoardKind // which 3D board / icon represents it
+  board: BoardKind // which icon / accent represents it
   featured?: boolean
   links?: { label: string; href: string }[]
   /** Screenshots shown in a browser frame (files in public/projects/). */
@@ -95,17 +108,14 @@ export type BoardKind = 'sbc' | 'mcu' | 'nrf' | 'arm' | 'web' | 'vision'
 
 export const projects: Project[] = [
   {
-    title: 'ECE Branch Web Portal',
+    title: 'ECE Department Portal',
     subtitle: 'Full-stack · In production',
     year: '2025',
-    description:
-      'The official department portal for ECE at RGUKT RK Valley, with role-based access for HOD, faculty, students and alumni.',
-    highlights: [
-      'Live attendance monitoring for students',
-      'On-the-fly class rescheduling for faculty',
-      'Instant push notifications on every schedule change',
-    ],
-    tags: ['Node.js', 'Express.js', 'PostgreSQL', 'Full-Stack'],
+    summary: 'Official ECE portal at RGUKT RK Valley — used daily by HOD, faculty, students & alumni.',
+    highlights: ['Live attendance tracking', 'Instant rescheduling + push alerts', 'Role-based access for 4 user types'],
+    metric: { value: 'Live', label: 'in production' },
+    flow: ['Browser', 'API', 'Postgres', 'Alerts'],
+    tags: ['Node.js', 'Express.js', 'PostgreSQL'],
     board: 'web',
     featured: true,
     links: [{ label: 'Live site', href: 'https://ece.rguktrkv.ac.in' }],
@@ -117,133 +127,102 @@ export const projects: Project[] = [
     ],
   },
   {
-    title: 'Collaborative Robotic Arm System',
+    title: 'Collaborative Robotic Arm',
     subtitle: 'Voice · Safety · Simulation',
     year: '2026',
-    description:
-      'One-click switch between a Gazebo-simulated ROS2 environment and a real 6-DOF arm over TCP/IP, sharing the same control logic.',
-    highlights: [
-      'Local voice-to-action pipeline: speech-to-text + LLM → structured motion commands',
-      'OpenCV / pose-estimation safety zone pauses the arm when a person enters',
-      'Sub-second stop latency, validated through repeated trials',
-    ],
-    tags: ['ROS2', 'C++', 'Python', 'Gazebo', 'OpenCV', 'JAKA SDK'],
+    summary: 'Voice-controlled 6-DOF arm with a vision safety stop.',
+    highlights: ['Speech → local LLM → motion commands', 'Person in zone → arm pauses', 'Same code: Gazebo sim ↔ real arm'],
+    metric: { value: '<1 s', label: 'safety stop' },
+    flow: ['Voice', 'LLM', 'ROS2', 'Arm'],
+    tags: ['ROS2', 'C++', 'Python', 'OpenCV'],
     board: 'arm',
     featured: true,
   },
   {
-    title: 'Wireless Vibration Monitoring',
+    title: 'Wireless Vibration Monitor',
     subtitle: 'nRF5340 · BLE',
     year: '2026',
-    description:
-      'A 1 kHz real-time acquisition system streaming accelerometer data wirelessly for vibration analysis.',
-    highlights: [
-      'Custom BLE GATT service for high-frequency streaming',
-      'Firmware tuned for low latency under continuous sensor load',
-    ],
-    tags: ['nRF5340', 'BLE/GATT', 'Embedded C', 'IMU'],
+    summary: 'Real-time accelerometer streaming over BLE for vibration analysis.',
+    highlights: ['Custom BLE GATT service', 'Low-latency streaming firmware'],
+    metric: { value: '1 kHz', label: 'sampling' },
+    flow: ['IMU', 'nRF5340', 'BLE GATT', 'Host'],
+    tags: ['nRF5340', 'BLE', 'Embedded C'],
     board: 'nrf',
     featured: true,
   },
   {
-    title: 'ISRO RPM Control System',
-    subtitle: 'Microgravity cell monitoring',
+    title: 'ISRO RPM Controller',
+    subtitle: 'Microgravity research',
     year: '2026',
-    description:
-      'Closed-loop stepper-motor RPM control for microgravity research at IIT Tirupati, monitoring cell behaviour in rotating environments.',
-    highlights: [
-      'Encoder feedback with Ziegler–Nichols-tuned PID',
-      'Live desktop UI for RPM, set-points and PID gains — no code changes needed',
-    ],
-    tags: ['Raspberry Pi', 'PID', 'Stepper Motors', 'Python', 'Real-Time'],
+    summary: 'Closed-loop stepper control for a Random Position Machine.',
+    highlights: ['Encoder feedback + tuned PID', 'Live UI for RPM & gains'],
+    metric: { value: 'PID', label: 'closed loop' },
+    flow: ['Pi UI', 'TCP/IP', 'Driver', 'Motor'],
+    tags: ['Raspberry Pi', 'PID', 'Python'],
     board: 'sbc',
   },
   {
-    title: 'Object Localization with ZED 2i',
-    subtitle: 'Depth vision · Kinematics',
+    title: 'ZED 2i Object Localization',
+    subtitle: 'Depth vision',
     year: '2026',
-    description:
-      'Computed X, Y, Z of objects from ZED 2i stereo depth and mapped them into the robot-base frame.',
-    highlights: [
-      'DINO models for object detection',
-      'Pixel ↔ depth matching for exact base-to-object distance',
-    ],
-    tags: ['Python', 'ZED 2i', 'DINO', 'Kinematics'],
+    summary: 'Stereo depth → object XYZ in the robot base frame.',
+    highlights: ['DINO object detection', 'Pixel ↔ depth matching'],
+    metric: { value: 'XYZ', label: '3D position' },
+    flow: ['ZED 2i', 'DINO', 'Depth', 'Robot'],
+    tags: ['Python', 'ZED 2i', 'DINO'],
     board: 'vision',
   },
   {
     title: 'EyeNtra',
-    subtitle: 'AI strabismus diagnostics',
+    subtitle: 'AI eye diagnostics',
     year: '2025',
-    description:
-      'OpenCV pipeline detecting eye misalignment from corneal reflex and pupil tracking, with a Flutter front-end for clinicians.',
-    highlights: [
-      'Sub-millimetre corneal-reflex and pupil metrics via REST API',
-      'Field-tested at Aravind Eye Hospital — refinement ongoing',
-    ],
-    tags: ['OpenCV', 'Flutter', 'Deep Learning', 'REST'],
+    summary: 'Strabismus screening from corneal reflex & pupil tracking.',
+    highlights: ['Sub-mm eye metrics via REST', 'Field-tested at Aravind Eye Hospital'],
+    metric: { value: '<1 mm', label: 'precision' },
+    flow: ['Camera', 'OpenCV', 'REST', 'App'],
+    tags: ['OpenCV', 'Flutter', 'REST'],
     board: 'vision',
   },
   {
     title: 'LifeBand MAA',
-    subtitle: 'Wearable health + local LLM',
-    year: '2025 — Present',
-    description:
-      'Wearable ECG and heart-rate monitor with real-time filtering and anomaly detection, plus a fine-tuned local model that explains readings in plain language.',
-    highlights: [
-      'National winner — Hack the Flame',
-      'On-device inference pipeline, LoRA fine-tuned model',
-    ],
-    tags: ['Embedded C', 'Signal Processing', 'LoRA', 'ESP32'],
+    subtitle: 'Wearable health',
+    year: '2025',
+    summary: 'Wearable ECG monitor + local LLM that explains readings.',
+    highlights: ['National winner — Hack the Flame', 'LoRA fine-tuned on-device model'],
+    metric: { value: '#1', label: 'Hack the Flame' },
+    flow: ['ECG', 'ESP32', 'Detect', 'LLM'],
+    tags: ['ESP32', 'DSP', 'LoRA'],
     board: 'mcu',
   },
 ]
 
-export const skills: { group: string; items: string[] }[] = [
-  { group: 'Programming', items: ['C', 'C++', 'Embedded C', 'Python', 'JavaScript'] },
-  {
-    group: 'Embedded & Real-Time',
-    items: ['Firmware Deployment', 'GPIO / Interrupts', 'PWM / Timers', 'DMA', 'Multithreading', 'ChibiOS/RT'],
-  },
-  {
-    group: 'Boards',
-    items: ['nRF5340', 'ESP32', 'Raspberry Pi', 'Arduino', 'Teensy', 'Ambient-Sensing Boards'],
-  },
-  { group: 'Protocols', items: ['BLE / GATT', 'UART', 'SPI', 'I²C', 'TCP/IP', 'HTTP / REST'] },
-  {
-    group: 'Robotics',
-    items: ['ROS2', '6-DOF Arm Control', 'Motion Planning', 'Kinematics', 'Gazebo', 'Isaac Sim'],
-  },
-  {
-    group: 'Signals & Control',
-    items: ['PID / Tracking Loops', 'Sensor Fusion', 'Filtering', 'Anomaly Detection', 'Encoder / IMU / ECG'],
-  },
-  {
-    group: 'Vision & AI',
-    items: ['OpenCV', 'MediaPipe', 'Object Detection', 'Local LLMs', 'LoRA Fine-Tuning', 'Speech-to-Text'],
-  },
-  {
-    group: 'Web & Tools',
-    items: ['Node.js', 'Express.js', 'PostgreSQL', 'Flutter', 'Linux', 'Git', 'Docker', 'KiCad'],
-  },
+export type SkillIcon = 'code' | 'cpu' | 'radio' | 'bot' | 'wave' | 'eye' | 'wrench'
+
+export const skills: { group: string; icon: SkillIcon; items: string[] }[] = [
+  { group: 'Languages', icon: 'code', items: ['C', 'C++', 'Embedded C', 'Python', 'JavaScript'] },
+  { group: 'Embedded', icon: 'cpu', items: ['nRF5340', 'ESP32', 'Raspberry Pi', 'ChibiOS/RT', 'DMA', 'Interrupts'] },
+  { group: 'Protocols', icon: 'radio', items: ['BLE / GATT', 'UART', 'SPI', 'I²C', 'TCP/IP'] },
+  { group: 'Robotics', icon: 'bot', items: ['ROS2', 'Gazebo', 'Isaac Sim', 'Kinematics', 'Motion planning'] },
+  { group: 'Signals & Control', icon: 'wave', items: ['PID', 'Sensor fusion', 'Filtering', 'Anomaly detection'] },
+  { group: 'Vision & AI', icon: 'eye', items: ['OpenCV', 'MediaPipe', 'Local LLMs', 'LoRA', 'Speech-to-text'] },
+  { group: 'Web & Tools', icon: 'wrench', items: ['Node.js', 'PostgreSQL', 'Flutter', 'Linux', 'Git', 'Docker', 'KiCad'] },
 ]
 
 export const achievements = [
-  { title: 'Hack the Flame', badge: 'National Winner', detail: 'LifeBand MAA — AI-powered wearable health monitoring', year: '2026' },
-  { title: 'Astronics 6.0', badge: 'College Winner', detail: 'Obstacle-avoidance robotics project', year: '' },
-  { title: 'Peekuthon', badge: 'Shortlisted', detail: 'LifeBand MAA — among top national entries', year: '' },
+  { title: 'Hack the Flame', badge: 'National Winner', detail: 'LifeBand MAA', year: '2026' },
+  { title: 'Astronics 6.0', badge: 'College Winner', detail: 'Obstacle-avoidance robot', year: '' },
+  { title: 'Peekuthon', badge: 'Shortlisted', detail: 'LifeBand MAA — top national entries', year: '' },
   { title: 'HackerRank', badge: 'Certified', detail: 'Problem Solving (Intermediate)', year: '2024' },
 ]
 
 export const education = [
-  { school: 'RGUKT RK Valley', degree: 'B.Tech, Electronics & Communication Engineering', period: '2023 — 2027', score: 'CGPA 8.0' },
-  { school: 'RGUKT RK Valley', degree: 'Pre-University Course (PUC)', period: '2021 — 2023', score: 'CGPA 9.63' },
+  { school: 'RGUKT RK Valley', degree: 'B.Tech · ECE', period: '2023 — 2027', score: 'CGPA 8.0' },
+  { school: 'RGUKT RK Valley', degree: 'PUC', period: '2021 — 2023', score: 'CGPA 9.63' },
 ]
 
 export const workshops = [
   {
     title: '5G Hands-on Workshop — IIT Tirupati',
-    detail:
-      'Deployed a full 5G network from scratch with OpenAirInterface in Docker; integrated UE with gNodeB and analysed throughput and bandwidth allocation.',
+    detail: 'Deployed a full 5G network (OpenAirInterface + Docker) — UE ↔ gNodeB, throughput analysis.',
   },
 ]
